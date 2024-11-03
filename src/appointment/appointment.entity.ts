@@ -7,6 +7,7 @@ import {
   import { IsDate, IsString, IsEnum, IsOptional } from 'class-validator';
   import { Patient } from '../patient/patient.entity';
   import { User } from 'src/user/user.entity';
+import { Doctor } from 'src/doctor/doctor.entity';
   
   // Enum para o status do agendamento
   export enum Status {
@@ -49,6 +50,9 @@ import {
   
     @ManyToOne(() => User, { eager: true })
     user: User;
+
+    @ManyToOne(() => Doctor, (doctor) => doctor.appointments, { eager: true })
+    doctor: Doctor;
   
     @Column({ nullable: true })
     @IsOptional()

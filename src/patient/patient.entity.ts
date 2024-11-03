@@ -17,9 +17,9 @@ import { Appointment } from 'src/appointment/appointment.entity';
   
   // Enum para gênero
   export enum Gender {
-    MALE = 'male',
-    FEMALE = 'female',
-    OTHER = 'other',
+    MALE = 'MALE',
+    FEMALE = 'FEMALE',
+    OTHER = 'OTHER',
   }
   
   // Entidade Patient
@@ -67,9 +67,9 @@ import { Appointment } from 'src/appointment/appointment.entity';
     @IsPhoneNumber(null)
     emergencyContactNumber: string;
   
-    @Column()
-    @IsString()
-    primaryPhysician: string;
+    // @Column()
+    // @IsString()
+    // primaryPhysician: string;
   
     @Column()
     @IsString()
@@ -111,7 +111,7 @@ import { Appointment } from 'src/appointment/appointment.entity';
   
     @Column({ type: 'bytea', nullable: true })
     @IsOptional()
-    identificationDocument?: Buffer;
+    identificationDocument?: Blob;
   
     @Column()
     @IsBoolean()

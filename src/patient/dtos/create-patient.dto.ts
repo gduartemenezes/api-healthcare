@@ -29,8 +29,8 @@ export class CreatePatientDto {
   @IsPhoneNumber(null)
   emergencyContactNumber: string;
 
-  @IsString()
-  primaryPhysician: string;
+  // @IsString()
+  // primaryPhysician: string;
 
   @IsString()
   insuranceProvider: string;
@@ -64,7 +64,7 @@ export class CreatePatientDto {
 
   // Ajuste o tipo para Buffer
   @IsOptional()
-  identificationDocument?: Buffer;
+  identificationDocument?: Blob;
 
   @IsBoolean()
   privacyConsent: boolean;

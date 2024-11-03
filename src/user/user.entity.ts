@@ -1,3 +1,4 @@
+import * as bcrypt from 'bcrypt'
 import {
     Entity,
     PrimaryGeneratedColumn,
@@ -56,4 +57,8 @@ import {
     // Relação OneToMany com a entidade Appointment
     @OneToMany(() => Appointment, (appointment) => appointment.user)
     appointments: Appointment[];
+
+    async checkPassword(password: string, hashedPassword: string): Promise<boolean> {
+      return await bcrypt.compare(password, hashedPassword);
+    }
   }

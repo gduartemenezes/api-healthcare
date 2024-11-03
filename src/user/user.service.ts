@@ -5,6 +5,7 @@ import { User } from './user.entity';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import * as bcrypt from 'bcrypt';
+import { CredentialsDto } from 'src/auth/dto/credentials.dto';
 
 @Injectable()
 export class UserService {
@@ -46,6 +47,31 @@ export class UserService {
   async remove(id: string): Promise<void> {
     const user = await this.findOne(id); // Check if user exists
     await this.userRepository.remove(user);
+  }
+
+  async findByEmailOrUserName(emailOrUsername: string): Promise<User> {
+    const user = await this.userRepository.findOne({
+      where: [
+        { email: emailOrUsername },
+        { username: emailOrUsername },
+      ],
+    });
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    return user;
+  }
+  async checkCredentials(credentialsDto: CredentialsDto): Promise<User> {
+    const { emailOrUsername, password } = credentialsDto;
+    const user = await this.findByEmailOrUserName(emailOrUsername)
+
+    if (user && (await user.checkPassword(password, user.password))) {
+      return user;
+    } else {
+      return null;
+    }
   }
 
   private async hashPassword(password: string): Promise<string> {
