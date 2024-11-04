@@ -1,9 +1,12 @@
 import { IsDate, IsString, IsEnum, IsOptional, IsNotEmpty } from 'class-validator';
 import { Status } from '../appointment.entity';
+import { Doctor } from 'src/doctor/doctor.entity';
+import { Patient } from 'src/patient/patient.entity';
+import { DeepPartial } from 'typeorm';
 
 export class CreateAppointmentDto {
   @IsNotEmpty()
-  patientId: string; // ID do paciente associado ao agendamento
+  patient: DeepPartial<Patient>; // ID do paciente associado ao agendamento
 
   @IsDate()
   schedule: Date;
@@ -11,9 +14,9 @@ export class CreateAppointmentDto {
   @IsEnum(Status)
   status: Status;
 
-  @IsNotEmpty()
   @IsString()
-  primaryPhysician: string;
+  @IsNotEmpty()
+  doctor: DeepPartial<Doctor>;
 
   @IsNotEmpty()
   @IsString()
