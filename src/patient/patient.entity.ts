@@ -3,6 +3,9 @@ import {
     PrimaryGeneratedColumn,
     Column,
     OneToMany,
+    ManyToOne,
+    CreateDateColumn,
+    UpdateDateColumn,
   } from 'typeorm';
   import {
     IsString,
@@ -14,6 +17,7 @@ import {
     IsBoolean,
   } from 'class-validator';
 import { Appointment } from 'src/appointment/appointment.entity';
+import { Doctor } from 'src/doctor/doctor.entity';
   
   // Enum para gênero
   export enum Gender {
@@ -119,4 +123,13 @@ import { Appointment } from 'src/appointment/appointment.entity';
 
     @OneToMany(() => Appointment, (appointment) => appointment.patient)
     appointments: Appointment;
+
+    @ManyToOne(() => Doctor, (doctor) => doctor.patients)
+    doctor: Doctor
+
+    @CreateDateColumn({ type: 'timestamp' })
+    createdAt: Date;
+  
+    @UpdateDateColumn({ type: 'timestamp' })
+    updatedAt: Date;
   }

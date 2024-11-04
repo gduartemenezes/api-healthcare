@@ -3,6 +3,8 @@ import {
     PrimaryGeneratedColumn,
     Column,
     ManyToOne,
+    CreateDateColumn,
+    UpdateDateColumn,
   } from 'typeorm';
   import { IsDate, IsString, IsEnum, IsOptional } from 'class-validator';
   import { Patient } from '../patient/patient.entity';
@@ -11,10 +13,10 @@ import { Doctor } from 'src/doctor/doctor.entity';
   
   // Enum para o status do agendamento
   export enum Status {
-    SCHEDULED = 'scheduled',
-    COMPLETED = 'completed',
-    CANCELED = 'canceled',
-    NO_SHOW = 'no_show',
+    SCHEDULED = 'SCHEDULED',
+    COMPLETED = 'COMPLETED',
+    CANCELED = 'CANCELED',
+    NO_SHOW = 'NO_SHOW',
   }
   
   @Entity()
@@ -38,10 +40,6 @@ import { Doctor } from 'src/doctor/doctor.entity';
   
     @Column()
     @IsString()
-    primaryPhysician: string;
-  
-    @Column()
-    @IsString()
     reason: string;
   
     @Column()
@@ -58,5 +56,12 @@ import { Doctor } from 'src/doctor/doctor.entity';
     @IsOptional()
     @IsString()
     cancellationReason: string | null;
+
+
+    @CreateDateColumn({ type: 'timestamp' })
+    createdAt: Date;
+  
+    @UpdateDateColumn({ type: 'timestamp' })
+    updatedAt: Date;
   }
   

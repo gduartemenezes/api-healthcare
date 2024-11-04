@@ -4,6 +4,8 @@ import {
     PrimaryGeneratedColumn,
     Column,
     OneToMany,
+    CreateDateColumn,
+    UpdateDateColumn,
   } from 'typeorm';
   import {
     IsString,
@@ -57,6 +59,12 @@ import {
     // Relação OneToMany com a entidade Appointment
     @OneToMany(() => Appointment, (appointment) => appointment.user)
     appointments: Appointment[];
+
+    @CreateDateColumn({ type: 'timestamp' })
+    createdAt: Date;
+  
+    @UpdateDateColumn({ type: 'timestamp' })
+    updatedAt: Date;
 
     async checkPassword(password: string, hashedPassword: string): Promise<boolean> {
       return await bcrypt.compare(password, hashedPassword);

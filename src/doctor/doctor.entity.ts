@@ -3,6 +3,8 @@ import {
     PrimaryGeneratedColumn,
     Column,
     OneToMany,
+    CreateDateColumn,
+    UpdateDateColumn,
   } from 'typeorm';
   import {
     IsString,
@@ -12,6 +14,7 @@ import {
     IsOptional,
   } from 'class-validator';
   import { Appointment } from 'src/appointment/appointment.entity';
+import { Patient } from 'src/patient/patient.entity';
   
   @Entity()
   export class Doctor {
@@ -49,4 +52,14 @@ import {
     // Relação OneToMany com a entidade Appointment
     @OneToMany(() => Appointment, (appointment) => appointment.doctor)
     appointments: Appointment[];
+
+    @OneToMany(() => Patient, (patient) => patient.doctor)
+    patients: Appointment[];
+
+
+    @CreateDateColumn({ type: 'timestamp' })
+    createdAt: Date;
+  
+    @UpdateDateColumn({ type: 'timestamp' })
+    updatedAt: Date;
   }
