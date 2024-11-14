@@ -124,7 +124,7 @@ import { Doctor } from 'src/doctor/doctor.entity';
     @OneToMany(() => Appointment, (appointment) => appointment.patient)
     appointments: Appointment;
 
-    @ManyToOne(() => Doctor, (doctor) => doctor.patients)
+    @ManyToOne(() => Doctor, (doctor) => doctor.patients, { eager: true })
     doctor: Doctor
 
     @CreateDateColumn({ type: 'timestamp' })
